@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "797192937261",
+    "project_id": "phone-otp-7a863",
+    "storage_bucket": "phone-otp-7a863.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797192937261:android:a7cff652c663a4063f3da4",
+        "android_client_info": {
+          "package_name": "com.example.greatindian"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGpwb7h2DMRNpw1ano4KPiV5bBw3EbDtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

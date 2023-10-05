@@ -1,14 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+// ignore_for_file: use_build_context_synchronously
 
-import 'widgets/login_tile_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:greatindian/controller/user_provider.dart';
+import 'package:greatindian/view/otp_screen/otp_screen.dart';
+import 'package:provider/provider.dart';
+import 'widgets/logo_widget.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
 
+  final TextEditingController phoneNumberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController phoneNumberController = TextEditingController();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
@@ -29,25 +34,65 @@ class LoginScreen extends StatelessWidget {
                     fontSize: 27),
               ),
               SizedBox(height: height * 0.04),
-              Center(
-                child: Lottie.asset(
-                  'assets/lottie/animation_lmuir2kx.json',
-                  height: height * 0.3,
-                  width: width * 0.62,
-                  repeat: true,
-                  reverse: true,
-                  animate: true,
-                ),
-              ),
+              const LogoWidget(),
               SizedBox(height: height * 0.04),
-              LoginScreen_Tile(
-                height: height,
-                width: width,
-                phoneNumberController: phoneNumberController,
+              Container(
+                height: height * 0.05,
+                width: width * 0.75,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: width * 0.04),
+                    const Text(
+                      '+91 ',
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
+                    SizedBox(
+                      width: width * 0.03,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: height * 0.01),
+                      child: const Text(
+                        '|',
+                        style: TextStyle(fontSize: 33, color: Colors.grey),
+                      ),
+                    ),
+                    SizedBox(
+                      width: width * 0.02,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: height * 0.02),
+                        child: TextField(
+                          controller: phoneNumberController,
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {},
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Phone Number',
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: height * 0.02),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  String phoneNumber = phoneNumberController.text;
+                  await userProvider.getOTP(phoneNumber);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OtpScreen(),
+                      ));
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.orange),
                   fixedSize: MaterialStateProperty.all(
@@ -61,20 +106,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: height * 0.03),
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'By Signing up, you agree with Terms',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Text(
-                    'and Conditions.',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              )
             ],
           ),
         ),

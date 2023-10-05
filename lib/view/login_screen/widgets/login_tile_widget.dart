@@ -1,20 +1,21 @@
 // ignore_for_file: camel_case_types
 import 'package:flutter/material.dart';
+import 'package:greatindian/utilities/popup.dart';
+import 'package:greatindian/utilities/validate_function.dart';
 
 class LoginScreen_Tile extends StatelessWidget {
   const LoginScreen_Tile({
     super.key,
-    required this.height,
-    required this.width,
     required this.phoneNumberController,
   });
 
-  final double height;
-  final double width;
   final TextEditingController phoneNumberController;
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
     return Container(
       height: height * 0.05,
       width: width * 0.75,
@@ -48,7 +49,14 @@ class LoginScreen_Tile extends StatelessWidget {
               child: TextField(
                 controller: phoneNumberController,
                 keyboardType: TextInputType.number,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  bool isValid = Validaters.isPhoneNumberValid(value);
+                  if (!isValid) {
+                    ToastClass.showToast(
+                      "Invalid phone number",
+                    );
+                  }
+                },
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Phone Number',
