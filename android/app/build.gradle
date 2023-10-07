@@ -28,7 +28,7 @@ def keystoreProperties = new Properties()
        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
    }
 android {
-    namespace "com.example.greatindian"
+    namespace 'com.example.greatindian'
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
