@@ -55,8 +55,7 @@ class OtpScreen extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all(Colors.orange),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), // Set the desired radius here
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                   fixedSize: MaterialStateProperty.all(

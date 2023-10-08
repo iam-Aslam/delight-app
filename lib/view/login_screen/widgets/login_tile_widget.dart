@@ -1,10 +1,9 @@
-// ignore_for_file: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:greatindian/utilities/popup.dart';
 import 'package:greatindian/utilities/validate_function.dart';
 
-class LoginScreen_Tile extends StatelessWidget {
-  const LoginScreen_Tile({
+class LoginScreenTile extends StatelessWidget {
+  const LoginScreenTile({
     super.key,
     required this.phoneNumberController,
   });
