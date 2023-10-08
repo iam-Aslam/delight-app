@@ -1,8 +1,5 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:greatindian/controller/user_provider.dart';
-import 'package:greatindian/view/otp_screen/otp_screen.dart';
 import 'package:provider/provider.dart';
 import 'widgets/logo_widget.dart';
 
@@ -86,25 +83,22 @@ class LoginScreen extends StatelessWidget {
               TextButton(
                 onPressed: () async {
                   String phoneNumber = phoneNumberController.text;
-                  await userProvider.getOTP(phoneNumber);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OtpScreen(),
-                      ));
+                  await userProvider.getOTP(phoneNumber, context);
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.orange),
                   fixedSize: MaterialStateProperty.all(
                       Size(width * 0.75, height * 0.05)),
                 ),
-                child: const Text(
-                  'Get OTP',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
+                child: userProvider.isSendingOTP
+                    ? const CircularProgressIndicator()
+                    : const Text(
+                        'Get OTP',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
               ),
             ],
           ),

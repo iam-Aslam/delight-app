@@ -13,7 +13,7 @@ class EditPhoneNumber extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.pop(context),
       child: Padding(
-        padding: EdgeInsets.only(left: width * 0.15),
+        padding: EdgeInsets.only(left: width * 0.04),
         child: const Row(
           children: [
             Text(

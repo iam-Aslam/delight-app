@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:greatindian/view/home_screen/home_screen.dart';
+import 'package:greatindian/controller/user_provider.dart';
 import 'package:pinput/pinput.dart';
-
+import 'package:provider/provider.dart';
 import '../../constants/app_themes.dart';
 import '../login_screen/widgets/logo_widget.dart';
 import 'widgets/edit_phone_widget.dart';
@@ -13,12 +11,10 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  final userProvider = Provider.of<UserProvider>(context, listen: false);
-
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -32,36 +28,39 @@ class OtpScreen extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
                     fontSize: 27),
               ),
               SizedBox(height: height * 0.04),
               const LogoWidget(),
               SizedBox(height: height * 0.04),
-              Pinput(
-                defaultPinTheme: AppConstantThemes.defaultPinTheme,
-                focusedPinTheme: AppConstantThemes.focusedPinTheme,
-                submittedPinTheme: AppConstantThemes.submittedPinTheme,
-                validator: (s) {
-                  return s == '222222' ? null : 'Pin is incorrect';
-                },
-                length: 6,
-                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                showCursor: true,
-                onCompleted: (pin) => log(pin.toString()),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8),
+                child: Pinput(
+                  defaultPinTheme: AppConstantThemes.defaultPinTheme,
+                  focusedPinTheme: AppConstantThemes.focusedPinTheme,
+                  submittedPinTheme: AppConstantThemes.submittedPinTheme,
+                  length: 6,
+                  pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                  showCursor: true,
+                  onCompleted: (pin) => userProvider.updateOTP(pin),
+                ),
               ),
               SizedBox(height: height * 0.02),
               TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ));
+                onPressed: () async {
+                  await userProvider.verifyOTP(userProvider.otp, context);
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.orange),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.0), // Set the desired radius here
+                    ),
+                  ),
                   fixedSize: MaterialStateProperty.all(
-                      Size(width * 0.75, height * 0.05)),
+                      Size(width * 0.95, height * 0.05)),
                 ),
                 child: const Text(
                   'Verify',
