@@ -45,7 +45,7 @@ class UserProvider with ChangeNotifier {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => HomeScreen(),
           ));
     } catch (e) {
       ToastClass.showToast('Invalid verification code');
