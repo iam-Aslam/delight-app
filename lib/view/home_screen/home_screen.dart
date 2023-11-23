@@ -1,15 +1,19 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:greatindian/constants/app_colors.dart';
+import 'package:greatindian/controller/user_provider.dart';
+import 'package:greatindian/model/user_model.dart';
+import 'package:greatindian/view/products_screen/products_screen.dart';
+import 'package:provider/provider.dart';
 import 'widgets/formfield_widget.dart';
 import 'widgets/header_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  TextEditingController userNameController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController companyController = TextEditingController();
   TextEditingController placeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
@@ -17,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    // final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     return SafeArea(
       child: Scaffold(
@@ -44,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                     return value;
                   },
                   hint: 'Username',
-                  controller: userNameController,
+                  controller: nameController,
                 ),
                 FormFeild(
                   validator: (value) {
@@ -61,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 FormFeild(
                   hint: 'Company Name',
-                  controller: nameController,
+                  controller: companyController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Enter Name";
@@ -81,13 +85,6 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
-                // Padding(
-                //   padding: EdgeInsets.only(bottom: size.height / 20),
-                //   child: PhoneFeild(
-                //     hint: 'Phone',
-                //     controller: phoneController,
-                //   ),
-                // ),
                 SizedBox(
                   width: size.width / 1,
                   height: size.height / 16,
@@ -99,23 +96,21 @@ class HomeScreen extends StatelessWidget {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () async {
-                      // if (formKey.currentState!.validate()) {
-                      //   User user = User(
-                      //     name: nameController.text.trim(),
-                      //     email: emailController.text.trim(),
-                      //     password: passwordController.text.trim(),
-                      //     country: "91",
-                      //     phoneNumber: phoneController.text.trim(),
-                      //     userName: userNameController.text.trim(),
-                      //   );
-                      //   if (await userProvider.signUp(user)) {
-                      //     Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => const LoginScreen(),
-                      //         ));
-                      //   }
-                      // }
+                      if (formKey.currentState!.validate()) {
+                        UserModel user = UserModel(
+                          name: nameController.text.trim(),
+                          email: emailController.text.trim(),
+                          place: placeController.text.trim(),
+                          company: companyController.text.trim(),
+                        );
+                        if (await userProvider.addUser(user)) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AllProductsScreen(),
+                              ));
+                        }
+                      }
                     },
                     child: const Text(
                       'Confirm  ',

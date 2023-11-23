@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greatindian/controller/user_provider.dart';
+import 'package:greatindian/controller/auth_provider.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_themes.dart';
@@ -11,7 +11,7 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<AuthProvider>(context, listen: false);
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;

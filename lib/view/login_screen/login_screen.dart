@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greatindian/controller/user_provider.dart';
+import 'package:greatindian/controller/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/logo_widget.dart';
 
@@ -9,7 +9,7 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<AuthProvider>(context, listen: false);
 
     var size = MediaQuery.of(context).size;
     var height = size.height;
