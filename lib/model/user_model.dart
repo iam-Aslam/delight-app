@@ -3,10 +3,13 @@ class UserModel {
   String email;
   String company;
   String place;
-  UserModel({
-    required this.name,
-    required this.email,
-    required this.company,
-    required this.place,
-  });
+  String latitude;
+  String longitude;
+  UserModel(
+      {required this.name,
+      required this.email,
+      required this.company,
+      required this.place,
+      this.latitude = '',
+      this.longitude = ''});
 }

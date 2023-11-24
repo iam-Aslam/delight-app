@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:greatindian/constants/app_colors.dart';
+import 'package:greatindian/controller/location_provider.dart';
 import 'package:greatindian/controller/user_provider.dart';
 import 'package:greatindian/model/user_model.dart';
 import 'package:greatindian/view/products_screen/products_screen.dart';
 import 'package:provider/provider.dart';
 import 'widgets/formfield_widget.dart';
 import 'widgets/header_widget.dart';
+import 'widgets/location_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -22,7 +24,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-
+    final locationProvider =
+        Provider.of<LocationProvider>(context, listen: false);
     return SafeArea(
       child: Scaffold(
           body: Padding(
@@ -85,6 +88,10 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
+                const LocationWidget(),
+                SizedBox(
+                  height: size.height / 20,
+                ),
                 SizedBox(
                   width: size.width / 1,
                   height: size.height / 16,
@@ -102,14 +109,16 @@ class HomeScreen extends StatelessWidget {
                           email: emailController.text.trim(),
                           place: placeController.text.trim(),
                           company: companyController.text.trim(),
+                          latitude: locationProvider.latitude.toString(),
+                          longitude: locationProvider.latitude.toString(),
                         );
-                        if (await userProvider.addUser(user)) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AllProductsScreen(),
-                              ));
-                        }
+                        await userProvider.addUser(user);
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AllProductsScreen(),
+                            ));
                       }
                     },
                     child: const Text(

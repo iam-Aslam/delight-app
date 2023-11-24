@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greatindian/controller/auth_provider.dart';
+import 'package:greatindian/controller/location_provider.dart';
 import 'package:greatindian/controller/user_provider.dart';
 import 'package:greatindian/view/login_screen/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => LocationProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

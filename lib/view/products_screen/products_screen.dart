@@ -7,6 +7,7 @@ class AllProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
         child: Scaffold(
+      // appBar: ,
       body: Center(
         child: Text('Hello'),
       ),

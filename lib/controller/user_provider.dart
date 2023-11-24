@@ -1,8 +1,8 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:greatindian/model/user_model.dart';
+import 'package:greatindian/utilities/popup.dart';
 
 class UserProvider extends ChangeNotifier {
   addUser(UserModel model) async {
@@ -16,7 +16,7 @@ class UserProvider extends ChangeNotifier {
         'company': model.company,
         'place': model.place,
       }).then((value) {
-        log('User Added Successfully');
+        ToastClass.showToast('User Details Added Successfully');
         notifyListeners();
       });
     } catch (e) {
