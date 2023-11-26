@@ -12,7 +12,8 @@ import 'widgets/header_widget.dart';
 import 'widgets/location_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  HomeScreen({super.key, required this.userId});
+  String userId;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController companyController = TextEditingController();
@@ -111,6 +112,7 @@ class HomeScreen extends StatelessWidget {
                           company: companyController.text.trim(),
                           latitude: locationProvider.latitude.toString(),
                           longitude: locationProvider.latitude.toString(),
+                          userId: userId,
                         );
                         await userProvider.addUser(user);
 

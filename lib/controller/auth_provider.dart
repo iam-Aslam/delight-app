@@ -11,6 +11,7 @@ class AuthProvider with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
   bool isSendingOTP = false;
   String otp = "";
+  String? userId;
   String verifiyer = "";
   Future<void> sendOTP(String phoneNumber, BuildContext context) async {
     try {
@@ -41,11 +42,18 @@ class AuthProvider with ChangeNotifier {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verifiyer, smsCode: smsCode);
-      await auth.signInWithCredential(credential);
+      //await auth.signInWithCredential(credential);
+
+      UserCredential authResult = await auth.signInWithCredential(credential);
+      userId = authResult.user?.uid;
+
+      notifyListeners();
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => HomeScreen(
+              userId: userId!,
+            ),
           ));
     } catch (e) {
       ToastClass.showToast('Invalid verification code');
