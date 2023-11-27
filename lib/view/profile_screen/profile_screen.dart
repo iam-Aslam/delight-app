@@ -12,18 +12,6 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Colors.orange,
         title: const Text('Profile Page'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => EditProfile(
-          //               passValueProfile: passValue,
-          //               index: passId,
-          //             )));
-        },
-        child: const Icon(Icons.edit_outlined),
-      ),
       body: FutureBuilder(
         future: Provider.of<UserProvider>(context, listen: false).getUser(),
         builder: (context, snapshot) {
