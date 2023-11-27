@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QrScreen extends StatelessWidget {
-  String productId;
-  QrScreen({super.key, required this.productId});
+  String product;
+  QrScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,27 @@ class QrScreen extends StatelessWidget {
           backgroundColor: Colors.orange,
           title: const Text('QR Code Screen'),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.download),
-          onPressed: () {},
-        ),
-        body: const Column(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Text('QR Code Will Appear Here'),
-              // child: QrImage(
-              //   data: productId,
-              //   version: QrVersions.auto,
-              //   size: 200.0,
-              // ),
-            )
+              child: RepaintBoundary(
+                child: QrImageView(
+                  data: product,
+                  version: QrVersions.auto,
+                  size: 250.0,
+                  gapless: true,
+                  errorStateBuilder: (ctx, err) {
+                    return const Center(
+                      child: Text(
+                        'Something went wrong!!!',
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),

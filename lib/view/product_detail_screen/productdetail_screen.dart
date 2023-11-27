@@ -46,7 +46,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => QrScreen(
-                          productId: data['id'],
+                          product: data['name'],
                         ),
                       ));
                 },
