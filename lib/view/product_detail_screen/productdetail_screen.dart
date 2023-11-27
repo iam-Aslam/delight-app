@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greatindian/controller/product_provider.dart';
 import 'package:greatindian/model/product_model.dart';
 import 'package:greatindian/view/add_product_screen/widgets/textfield_widget.dart';
+import 'package:greatindian/view/qrcode_screen.dart/qrcode_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -37,8 +38,21 @@ class ProductDetailsScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.orange,
             elevation: 0,
-            // automaticallyImplyLeading: true,
             foregroundColor: Colors.black,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => QrScreen(
+                          productId: data['id'],
+                        ),
+                      ));
+                },
+                icon: const Icon(Icons.qr_code_scanner_sharp),
+              )
+            ],
             leading: IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_back)),

@@ -50,7 +50,7 @@ class DetailsTextFieldWidget extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: textController,
                 maxLines: maxLines,

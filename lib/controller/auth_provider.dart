@@ -42,8 +42,6 @@ class AuthProvider with ChangeNotifier {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verifiyer, smsCode: smsCode);
-      //await auth.signInWithCredential(credential);
-
       UserCredential authResult = await auth.signInWithCredential(credential);
       userId = authResult.user?.uid;
 
