@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:greatindian/controller/location_provider.dart';
 import 'package:greatindian/controller/product_provider.dart';
 import 'package:greatindian/view/product_detail_screen/productdetail_screen.dart';
 
@@ -15,6 +16,8 @@ class AllProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productProvider =
         Provider.of<ProductProvider>(context, listen: false);
+    final locationProvider =
+        Provider.of<LocationProvider>(context, listen: false);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -33,7 +36,11 @@ class AllProductsScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.location_on_outlined),
-            onPressed: () {},
+            onPressed: () async {
+              locationProvider.openGoogleMap(
+                  locationProvider.latitude!.toDouble(),
+                  locationProvider.longitude!.toDouble());
+            },
           ),
         ],
       ),
